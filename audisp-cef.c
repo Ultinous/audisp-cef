@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
 				hup==0 && stop==0) {
 			char *p = strstr(tmp, "type=");
 			if (p)
-				tauparse_feed(au, p, strnlen(p, MAX_AUDIT_MESSAGE_LENGTH));
+auparse_feed(au, p, strnlen(p, MAX_AUDIT_MESSAGE_LENGTH));
 		}
 
 		if (feof(stdin))
