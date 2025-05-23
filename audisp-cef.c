@@ -461,7 +461,7 @@ static void handle_event(auparse_state_t *au,
 						havecef = i;
 						cef_msg.msgname = "WRITE";
 						cef_msg.msgdesc = "Write or append to file";
-					} else if (!strncmp(sys, "setxattr", 8) || !strncmp(sys, "removexattr", 11)) {
+					} else if (!strncmp(sys, "setxattr", 8) || !strncmp(sys, "removexattr", 11) || !strncmp(sys, "listxattr", 9) || !strncmp(sys, "lgetxattr", 9) || !strncmp(sys, "fsetxattr", 9)) {
 						havecef = i;
 						cef_msg.msgname = "ATTR";
 						cef_msg.msgdesc = "Change file attributes";
@@ -469,10 +469,10 @@ static void handle_event(auparse_state_t *au,
 						havecef = i;
 						cef_msg.msgname = "CHMOD";
 						cef_msg.msgdesc = "Change file mode";
-					} else if (!strncmp(sys, "chown", 5) || !strncmp(sys, "fchownat", 8)) {
-						havecef = i;
-						cef_msg.msgname = "CHOWN";
-						cef_msg.msgdesc = "Change file owner";
+               } else if (!strncmp(sys, "chown", 5) || !strncmp(sys, "fchown", 6) || !strncmp(sys, "fchownat", 8)) {
+                       havecef = i;
+                       cef_msg.msgname = "CHOWN";
+                       cef_msg.msgdesc = "Change file owner";
 					} else if (!strncmp(sys, "ptrace", 6)) {
 						havecef = i;
 						cef_msg.msgname = "PTRACE";
@@ -481,11 +481,11 @@ static void handle_event(auparse_state_t *au,
 						havecef = i;
 						cef_msg.msgname = "EXECVE";
 						cef_msg.msgdesc = "Unix Exec";
-					} else if (!strncmp(sys, "adjtimex", 8)) {
+               } else if (!strncmp(sys, "adjtimex", 8) || !strncmp(sys, "settimeofday", 12)) {
 						havecef = i;
 						cef_msg.msgname = "ADJTIMEX";
 						cef_msg.msgdesc = "Time synchronize";
-					} else if (!strncmp(sys, "rename", 7)) {
+               } else if (!strncmp(sys, "rename", 7) || !strncmp(sys, "renameat", 8)) {
 						havecef = i;
 						cef_msg.msgname = "RENAME";
 						cef_msg.msgdesc = "rename";
@@ -497,15 +497,23 @@ static void handle_event(auparse_state_t *au,
 						havecef = i;
 						cef_msg.msgname = "RMDIR";
 						cef_msg.msgdesc = "rmdir";
+					} else if (!strncmp(sys, "umount2", 7)) {
+						havecef = i;
+						cef_msg.msgname = "UMOUNT";
+						cef_msg.msgdesc = "Unmount filesystem";
 					} else if (!strncmp(sys, "mknod", 5)) {
 						havecef = i;
 						cef_msg.msgname = "MKNOD";
 						cef_msg.msgdesc = "mknod";
-					} else if (!strncmp(sys, "symlink", 7)) {
-						havecef = i;
-						cef_msg.msgname = "SYMLINK";
-						cef_msg.msgdesc = "Symbolic link";
-					} else if (!strncmp(sys, "sethostname", 11)) {
+        } else if (!strncmp(sys, "symlink", 7)) {
+               havecef = i;
+               cef_msg.msgname = "SYMLINK";
+               cef_msg.msgdesc = "Symbolic link";
+        } else if (!strncmp(sys, "linkat", 6)) {
+               havecef = i;
+               cef_msg.msgname = "LINKAT";
+               cef_msg.msgdesc = "Hard link";
+        } else if (!strncmp(sys, "sethostname", 11)) {
 						havecef = i;
 						cef_msg.msgname = "SETHOSTNAME";
 						cef_msg.msgdesc = "Set hostname";
@@ -513,11 +521,15 @@ static void handle_event(auparse_state_t *au,
 						havecef = i;
 						cef_msg.msgname = "SENDTO";
 						cef_msg.msgdesc = "Sendto syscall";
-					} else if (!strncmp(sys, "sendmsg", 7)) {
-						havecef = i;
-						cef_msg.msgname = "SENDMSG";
-						cef_msg.msgdesc = "Sendmsg syscall";
-					} else if (!strncmp(sys, "bpf", 3)) {
+                        } else if (!strncmp(sys, "sendmsg", 7)) {
+                               havecef = i;
+                               cef_msg.msgname = "SENDMSG";
+                               cef_msg.msgdesc = "Sendmsg syscall";
+                        } else if (!strncmp(sys, "connect", 7)) {
+                               havecef = i;
+                               cef_msg.msgname = "CONNECT";
+                               cef_msg.msgdesc = "Connect syscall";
+                        } else if (!strncmp(sys, "bpf", 3)) {
 						havecef = i;
 						cef_msg.msgname = "BPF";
 						cef_msg.msgdesc = "bpf";
