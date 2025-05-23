@@ -161,8 +161,11 @@ int main(int argc, char *argv[])
 			reload_config();
 
 		while (fgets_unlocked(tmp, MAX_AUDIT_MESSAGE_LENGTH, stdin) &&
-							hup==0 && stop==0)
-			auparse_feed(au, tmp, strnlen(tmp, MAX_AUDIT_MESSAGE_LENGTH));
+				hup==0 && stop==0) {
+			char *p = strstr(tmp, "type=");
+			if (p)
+				tauparse_feed(au, p, strnlen(p, MAX_AUDIT_MESSAGE_LENGTH));
+		}
 
 		if (feof(stdin))
 			break;

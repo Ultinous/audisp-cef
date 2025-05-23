@@ -75,6 +75,7 @@ Message handling
 ----------------
 
 Syscalls are interpreted by audisp-cef and transformed into a CEF message which has a new attribute.
+Input may include syslog-formatted audit messages; any prefix up to the audit record (type=...) is stripped before parsing.
 This means, for example, all execve() and related calls will be aggregated into a message of type EXECVE.
 
 Supported messages are listed in the document messages_format.rst
