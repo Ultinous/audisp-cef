@@ -50,3 +50,15 @@ Implemented message types
 :PTRACE: process trace, gdb/strace do that for example, 'ptrace' syscall in audit.rules.
 :EXECVE: execute program, 'execve' syscall in audit.rules.
 :AVC_APPARMOR: AppArmor messages, generally used on Ubuntu. Not handled by audit.rules.
+
+:ADJTIMEX: time synchronization, 'adjtimex' syscall in audit.rules.
+:RENAME: rename file or directory, 'rename' syscall in audit.rules.
+:MKDIR: create directory, 'mkdir' syscall in audit.rules.
+:RMDIR: remove directory, 'rmdir' syscall in audit.rules.
+:MKNOD: create filesystem node, 'mknod' syscall in audit.rules.
+:SYMLINK: symbolic link creation, 'symlink' syscall in audit.rules.
+:SETHOSTNAME: set system hostname, 'sethostname' syscall in audit.rules.
+:SENDTO: send message to socket, 'sendto' syscall in audit.rules.
+:SENDMSG: send message on socket, 'sendmsg' syscall in audit.rules.
+:BPF: perform a BPF syscall, 'bpf' syscall in audit.rules.
+:CLOSE: close file descriptor, 'close' syscall in audit.rules.
